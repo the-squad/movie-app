@@ -3,5 +3,7 @@
     <string name="log">Login</string>
     <string name="register">signUp</string>
     <string name="email">Enter your Email</string>
+    <string name="name">Enter your Name</string>
     <string name="pass">Enter your Password</string>
+    <string name="repass">Enter your rePassword</string>
 </resources>
