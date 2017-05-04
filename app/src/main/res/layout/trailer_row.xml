@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    >
+
+
+    <ImageView
+        android:layout_width="130dp"
+        android:layout_height="100dp"
+        android:id="@+id/thumbnail"
+        android:src="@drawable/cover2"
+        android:scaleType="fitXY"
+        android:clickable="true"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Video Name : "
+        android:textSize="15dp"
+        android:id="@+id/videoName"
+        android:textColor="#03414D"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/thumbnail"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Link Link Link"
+        android:id="@+id/link"
+        android:clickable="true"
+        android:autoLink="all"
+        android:textColorLink="#F23A3A"
+        android:textSize="12dp"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/videoName"
+        android:paddingTop="10dp"
+        />
+</RelativeLayout>
+

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFF">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#FFF"
+        >
+
+        <ImageView
+            android:id="@+id/cover"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/cover1" />
+
+        <ImageView
+            android:id="@+id/img2"
+            android:layout_width="180dp"
+            android:layout_height="280dp"
+            android:layout_below="@+id/cover"
+            android:layout_margin="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/img2" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_above="@+id/img2"
+            android:layout_alignParentEnd="true"
+            android:background="#8000"
+            android:gravity="center"
+            android:text="SUICIDE SQUAD"
+            android:textColor="#FFF"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/img2"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/img2"
+            android:id="@+id/linearLayout">
+
+            <ImageView
+                android:id="@+id/calender"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_toEndOf="@+id/img2"
+                android:scaleType="fitXY"
+                android:src="@drawable/calendar" />
+
+            <TextView
+                android:id="@+id/year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="4dp"
+                android:layout_toEndOf="@+id/calender"
+                android:text="2016"
+                android:textSize="20dp"
+                android:textColor="#4B788F"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout"
+            android:layout_toEndOf="@+id/img2"
+            android:id="@+id/linearLayout2"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/rate"
+                android:layout_alignTop="@+id/linearLayout2"
+                android:layout_alignStart="@+id/linearLayout"/>
+
+            <TextView
+                android:id="@+id/rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/favBtn"
+                android:layout_toEndOf="@+id/imageView2"
+                android:text="8.2 / 10"
+                android:textSize="20dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="5dp"
+                android:textColor="#4B788F"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout2"
+            android:layout_alignEnd="@+id/linearLayout"
+            android:id="@+id/linearLayout3"
+            android:layout_marginTop="50dp"
+            >
+
+            <ImageButton
+                android:id="@+id/favBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:clickable="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/star"
+                android:layout_alignBottom="@+id/img2"
+                android:layout_alignStart="@+id/linearLayout2" />
+
+            <ImageButton
+                android:id="@+id/delete"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:clickable="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/star1"
+                android:layout_alignBottom="@+id/img2"
+                android:layout_alignStart="@+id/linearLayout2" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/storyTitle"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/img2"
+            android:layout_marginTop="15dp"
+            android:background="#00BCD4"
+            android:padding="10dp"
+            android:text="Story :"
+            android:textColor="#FFFF"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/story"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/img2"
+            android:layout_below="@+id/storyTitle"
+            android:padding="12dp"
+            android:text="From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government, undertaking high-risk black ops missions in exchange for commuted prison sentences."
+            android:textColor="#4B788F"
+            android:textSize="15dp" />
+
+
+        <TextView
+            android:id="@+id/trailersTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/img2"
+            android:layout_below="@+id/story"
+            android:background="#00BCD4"
+            android:padding="10dp"
+            android:text="Trailers : "
+            android:textColor="#FFFF"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/vidRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/trailersTitle"
+            android:layout_margin="5dp"
+            android:padding="5dp"></android.support.v7.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/revTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/img2"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/vidRecycler"
+            android:layout_marginTop="5dp"
+            android:background="#00BCD4"
+            android:padding="10dp"
+            android:text="Reviews : "
+            android:textColor="#FFFF"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/revRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/revTitle"
+            android:layout_margin="5dp"
+            android:padding="5dp"></android.support.v7.widget.RecyclerView>
+
+
+
+
+
+
+    </RelativeLayout>
+
+
+</ScrollView>
+
