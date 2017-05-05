@@ -92,14 +92,11 @@ public class DetailsFragment extends Fragment {
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 for(DataSnapshot d : dataSnapshot.child("comments").getChildren())
                 {
-                    Log.d("blaaaaaaaa",(String) dataSnapshot.child("users").child((String) d.child("name").getValue()).child("name").getValue());
-                    //String name = (String) dataSnapshot.child("users").child().getValue();
+                    String name = (String) dataSnapshot.child("users").child((String) d.child("name").getValue()).child("name").getValue();
                     comments.add(new comment("blaaa",(String) d.child("comment").getValue()));
                     commentAdapter.notifyDataSetChanged();
-                    //Log.d("bbblaaaaaaaaaa",(String) d.child("name").getValue());
                 }
             }
 
