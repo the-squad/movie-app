@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,6 +16,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -27,8 +34,9 @@ import java.util.ArrayList;
 public class DetailsFragment extends Fragment {
     MovieData model = new MovieData();
     MovieDbAdapter movieDbAdapterObj;
-
-
+    DatabaseReference db;
+    commentAdapter commentAdapter;
+    ArrayList<comment> comments = new ArrayList<>();
     private ImageView posterView;
     private TextView titleView;
     private TextView yearView;
@@ -37,6 +45,7 @@ public class DetailsFragment extends Fragment {
     private ImageView coverView;
     public RecyclerView videosView;
     public RecyclerView reviewsView;
+    public RecyclerView commentsView;
     private TrailerAdapter videosAdapter;
     private ReviewAdapter reviewAdapter;
     private ImageButton favorite;
@@ -69,13 +78,36 @@ public class DetailsFragment extends Fragment {
         storyView = (TextView) rootView.findViewById(R.id.story);
         videosView = (RecyclerView) rootView.findViewById(R.id.vidRecycler);
         reviewsView = (RecyclerView) rootView.findViewById(R.id.revRecycler);
+        commentsView = (RecyclerView) rootView.findViewById(R.id.commentrec);
+        commentsView.setLayoutManager(new LinearLayoutManager(getActivity()));
         videosView.setLayoutManager(new LinearLayoutManager(getActivity()));
         reviewsView.setLayoutManager(new LinearLayoutManager(getActivity()));
         favorite = (ImageButton) rootView.findViewById(R.id.favBtn);
         delete = (ImageButton) rootView.findViewById(R.id.delete);
 
         model = (MovieData) getArguments().getSerializable("movie");
+        commentAdapter = new commentAdapter(comments);
+        commentsView.setAdapter(commentAdapter);
+        db = FirebaseDatabase.getInstance().getReference();
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
+                for(DataSnapshot d : dataSnapshot.child("comments").getChildren())
+                {
+                    Log.d("blaaaaaaaa",(String) dataSnapshot.child("users").child((String) d.child("name").getValue()).child("name").getValue());
+                    //String name = (String) dataSnapshot.child("users").child().getValue();
+                    comments.add(new comment("blaaa",(String) d.child("comment").getValue()));
+                    commentAdapter.notifyDataSetChanged();
+                    //Log.d("bbblaaaaaaaaaa",(String) d.child("name").getValue());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         //setting data into views
         titleView.setText(model.getTitle());
         rateView.setText(model.getRate());
@@ -83,6 +115,7 @@ public class DetailsFragment extends Fragment {
         storyView.setText(model.getOverview());
         Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w342/" + model.getPoster()).placeholder(R.drawable.loading).into(posterView);
         Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w780/" + model.getBackdropPath()).placeholder(R.drawable.loading).into(coverView);
+
 
         //SQLite
         movieDbAdapterObj = new MovieDbAdapter(getActivity());

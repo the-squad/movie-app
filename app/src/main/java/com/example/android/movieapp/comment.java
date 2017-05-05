@@ -10,10 +10,11 @@ public class comment {
     private String name;
     private String comment;
 
-    /*public comment(String name, String comment) {
+    public comment(){}
+    public comment(String name, String comment) {
         this.name = name;
         this.comment = comment;
-    }*/
+    }
 
     public static ArrayList<comment> commentArrayList()
     {
