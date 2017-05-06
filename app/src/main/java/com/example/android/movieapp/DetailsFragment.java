@@ -35,6 +35,7 @@ public class DetailsFragment extends Fragment {
     MovieData model = new MovieData();
     MovieDbAdapter movieDbAdapterObj;
     DatabaseReference db;
+    valuesEventLisnter v;
     commentAdapter commentAdapter;
     ArrayList<comment> comments = new ArrayList<>();
     private ImageView posterView;
@@ -51,17 +52,15 @@ public class DetailsFragment extends Fragment {
     private ImageButton favorite;
     private ImageButton delete;
 
-    public static DetailsFragment getInstance(MovieData movie)
-    {
+    public static DetailsFragment getInstance(MovieData movie) {
         DetailsFragment detailsFragment = new DetailsFragment();
         Bundle args = new Bundle();
-        args.putSerializable("movie",movie);
+        args.putSerializable("movie", movie);
         detailsFragment.setArguments(args);
         return detailsFragment;
     }
 
-    public DetailsFragment()
-    {
+    public DetailsFragment() {
 
     }
 
@@ -89,22 +88,9 @@ public class DetailsFragment extends Fragment {
         commentAdapter = new commentAdapter(comments);
         commentsView.setAdapter(commentAdapter);
         db = FirebaseDatabase.getInstance().getReference();
-        db.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot d : dataSnapshot.child("comments").getChildren())
-                {
-                    String name = (String) dataSnapshot.child("users").child((String) d.child("name").getValue()).child("name").getValue();
-                    comments.add(new comment("blaaa",(String) d.child("comment").getValue()));
-                    commentAdapter.notifyDataSetChanged();
-                }
-            }
+        v = new valuesEventLisnter();
+        db.addValueEventListener(v);
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
         //setting data into views
         titleView.setText(model.getTitle());
         rateView.setText(model.getRate());
@@ -170,20 +156,45 @@ public class DetailsFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.details_menu,menu);
+        inflater.inflate(R.menu.details_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id==R.id.home)
-        {
-            Intent intent = new Intent(getActivity(),MainActivity.class);
+        if (id == R.id.home) {
+            Intent intent = new Intent(getActivity(), MainActivity.class);
             startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        db.removeEventListener(v);
+    }
+
+    class valuesEventLisnter implements ValueEventListener {
+
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            comments.clear();
+            for (DataSnapshot d : dataSnapshot.child("comments").getChildren()) {
+                if (((String) d.child("id").getValue()).equals(model.getId())) {
+                    String name = (String) dataSnapshot.child("users").child((String) d.child("name").getValue()).child("name").getValue();
+                    comments.add(new comment(name, (String) d.child("comment").getValue()));
+                    commentAdapter.notifyDataSetChanged();
+                }
+            }
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
     }
 }
 
