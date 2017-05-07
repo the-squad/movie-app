@@ -5,16 +5,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -27,8 +38,10 @@ import java.util.ArrayList;
 public class DetailsFragment extends Fragment {
     MovieData model = new MovieData();
     MovieDbAdapter movieDbAdapterObj;
-
-
+    DatabaseReference db;
+    valuesEventLisnter v;
+    commentAdapter commentAdapter;
+    ArrayList<comment> comments = new ArrayList<>();
     private ImageView posterView;
     private TextView titleView;
     private TextView yearView;
@@ -37,22 +50,22 @@ public class DetailsFragment extends Fragment {
     private ImageView coverView;
     public RecyclerView videosView;
     public RecyclerView reviewsView;
+    public RecyclerView commentsView;
     private TrailerAdapter videosAdapter;
     private ReviewAdapter reviewAdapter;
     private ImageButton favorite;
     private ImageButton delete;
-
-    public static DetailsFragment getInstance(MovieData movie)
-    {
+    private ImageButton sendComment;
+    private EditText writeComment;
+    public static DetailsFragment getInstance(MovieData movie) {
         DetailsFragment detailsFragment = new DetailsFragment();
         Bundle args = new Bundle();
-        args.putSerializable("movie",movie);
+        args.putSerializable("movie", movie);
         detailsFragment.setArguments(args);
         return detailsFragment;
     }
 
-    public DetailsFragment()
-    {
+    public DetailsFragment() {
 
     }
 
@@ -60,7 +73,7 @@ public class DetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_details, container, false);
 
-//initialize views
+        //initialize views
         coverView = (ImageView) rootView.findViewById(R.id.cover);
         posterView = (ImageView) rootView.findViewById(R.id.img2);
         titleView = (TextView) rootView.findViewById(R.id.title);
@@ -69,12 +82,32 @@ public class DetailsFragment extends Fragment {
         storyView = (TextView) rootView.findViewById(R.id.story);
         videosView = (RecyclerView) rootView.findViewById(R.id.vidRecycler);
         reviewsView = (RecyclerView) rootView.findViewById(R.id.revRecycler);
+        commentsView = (RecyclerView) rootView.findViewById(R.id.commentrec);
+        commentsView.setLayoutManager(new LinearLayoutManager(getActivity()));
         videosView.setLayoutManager(new LinearLayoutManager(getActivity()));
         reviewsView.setLayoutManager(new LinearLayoutManager(getActivity()));
         favorite = (ImageButton) rootView.findViewById(R.id.favBtn);
         delete = (ImageButton) rootView.findViewById(R.id.delete);
-
+        sendComment = (ImageButton) rootView.findViewById(R.id.sendComment);
+        writeComment = (EditText) rootView.findViewById(R.id.writeCommentText);
         model = (MovieData) getArguments().getSerializable("movie");
+        //comment Adapter
+        commentAdapter = new commentAdapter(comments);
+        commentsView.setAdapter(commentAdapter);
+        // retrive on value change from firebase
+        db = FirebaseDatabase.getInstance().getReference();
+        v = new valuesEventLisnter();
+        db.addValueEventListener(v);
+        sendComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String comment = writeComment.getText().toString();
+                if(!TextUtils.isEmpty(comment))
+                    db.child("comments").push().setValue(new comment(model.getId(),comment,FirebaseAuth.getInstance().getCurrentUser().getUid()));
+                else
+                    Toast.makeText(getActivity().getBaseContext(),"Enter ur Comment",Toast.LENGTH_LONG).show();
+            }
+        });
 
         //setting data into views
         titleView.setText(model.getTitle());
@@ -83,6 +116,7 @@ public class DetailsFragment extends Fragment {
         storyView.setText(model.getOverview());
         Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w342/" + model.getPoster()).placeholder(R.drawable.loading).into(posterView);
         Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w780/" + model.getBackdropPath()).placeholder(R.drawable.loading).into(coverView);
+
 
         //SQLite
         movieDbAdapterObj = new MovieDbAdapter(getActivity());
@@ -140,20 +174,46 @@ public class DetailsFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.details_menu,menu);
+        inflater.inflate(R.menu.details_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id==R.id.home)
-        {
-            Intent intent = new Intent(getActivity(),MainActivity.class);
+        if (id == R.id.home) {
+            Intent intent = new Intent(getActivity(), MainActivity.class);
             startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        db.removeEventListener(v);
+    }
+
+    class valuesEventLisnter implements ValueEventListener {
+
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            comments.clear();
+            for (DataSnapshot d : dataSnapshot.child("comments").getChildren()) {
+                comment commentsRetrived = d.getValue(comment.class);
+                if (commentsRetrived.getId().equals(model.getId())) {
+                    commentsRetrived.setUser((String) dataSnapshot.child("users").child(commentsRetrived.getUser()).child("name").getValue());
+                    comments.add(commentsRetrived);
+                    commentAdapter.notifyDataSetChanged();
+                }
+            }
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
     }
 }
 
