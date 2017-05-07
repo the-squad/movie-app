@@ -52,7 +52,7 @@
 
     <Button
         android:id="@+id/register_id"
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginBottom="70dp"
         android:layout_marginLeft="8dp"
@@ -64,12 +64,14 @@
 
     <TextView
         android:id="@+id/forget_id"
-        android:layout_width="224dp"
-        android:layout_height="31dp"
+        android:layout_width="280dp"
+        android:layout_height="35dp"
         android:clickable="true"
-        android:textSize="40px"
         android:text="@string/forget"
         android:textColor="@color/colorPrimary"
+        android:textSize="50px"
+        android:textAlignment="center"
+
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
