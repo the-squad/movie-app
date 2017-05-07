@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,10 +13,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -51,7 +55,8 @@ public class DetailsFragment extends Fragment {
     private ReviewAdapter reviewAdapter;
     private ImageButton favorite;
     private ImageButton delete;
-
+    private ImageButton sendComment;
+    private EditText writeComment;
     public static DetailsFragment getInstance(MovieData movie) {
         DetailsFragment detailsFragment = new DetailsFragment();
         Bundle args = new Bundle();
@@ -68,7 +73,7 @@ public class DetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_details, container, false);
 
-//initialize views
+        //initialize views
         coverView = (ImageView) rootView.findViewById(R.id.cover);
         posterView = (ImageView) rootView.findViewById(R.id.img2);
         titleView = (TextView) rootView.findViewById(R.id.title);
@@ -83,13 +88,26 @@ public class DetailsFragment extends Fragment {
         reviewsView.setLayoutManager(new LinearLayoutManager(getActivity()));
         favorite = (ImageButton) rootView.findViewById(R.id.favBtn);
         delete = (ImageButton) rootView.findViewById(R.id.delete);
-
+        sendComment = (ImageButton) rootView.findViewById(R.id.sendComment);
+        writeComment = (EditText) rootView.findViewById(R.id.writeCommentText);
         model = (MovieData) getArguments().getSerializable("movie");
+        //comment Adapter
         commentAdapter = new commentAdapter(comments);
         commentsView.setAdapter(commentAdapter);
+        // retrive on value change from firebase
         db = FirebaseDatabase.getInstance().getReference();
         v = new valuesEventLisnter();
         db.addValueEventListener(v);
+        sendComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String comment = writeComment.getText().toString();
+                if(!TextUtils.isEmpty(comment))
+                    db.child("comments").push().setValue(new comment(model.getId(),comment,FirebaseAuth.getInstance().getCurrentUser().getUid()));
+                else
+                    Toast.makeText(getActivity().getBaseContext(),"Enter ur Comment",Toast.LENGTH_LONG).show();
+            }
+        });
 
         //setting data into views
         titleView.setText(model.getTitle());
@@ -183,9 +201,10 @@ public class DetailsFragment extends Fragment {
         public void onDataChange(DataSnapshot dataSnapshot) {
             comments.clear();
             for (DataSnapshot d : dataSnapshot.child("comments").getChildren()) {
-                if (((String) d.child("id").getValue()).equals(model.getId())) {
-                    String name = (String) dataSnapshot.child("users").child((String) d.child("name").getValue()).child("name").getValue();
-                    comments.add(new comment(name, (String) d.child("comment").getValue()));
+                comment commentsRetrived = d.getValue(comment.class);
+                if (commentsRetrived.getId().equals(model.getId())) {
+                    commentsRetrived.setUser((String) dataSnapshot.child("users").child(commentsRetrived.getUser()).child("name").getValue());
+                    comments.add(commentsRetrived);
                     commentAdapter.notifyDataSetChanged();
                 }
             }
