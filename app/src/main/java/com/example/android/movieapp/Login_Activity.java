@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,9 +22,9 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Login_Activity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private Button login_btn;
-    private EditText email_text;
-    private EditText pass_text;
+    private Button login_btn,register_btn;
+    private EditText email_text,pass_text;
+    private TextView forget_pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,9 @@ public class Login_Activity extends AppCompatActivity {
         email_text = (EditText) findViewById(R.id.email_log_id);
         pass_text = (EditText) findViewById(R.id.pass_log_id);
         login_btn = (Button) findViewById(R.id.log_btn);
+        register_btn = (Button) findViewById(R.id.register_id);
+        forget_pass = (TextView) findViewById(R.id.forget_id);
+
 
 
         login_btn.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +56,23 @@ public class Login_Activity extends AppCompatActivity {
                     pass_text.setError("Required");
                 }
 
+            }
+        });
+
+        register_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(Login_Activity.this,RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        forget_pass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(Login_Activity.this,Reset_password.class);
+                startActivity(intent);
             }
         });
     }
