@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">MovieApp</string>
     <string name="log">Login</string>
-    <string name="register">signUp</string>
+    <string name="register">Ctreat new Account</string>
     <string name="email">Enter your Email</string>
     <string name="name">Enter your Name</string>
     <string name="pass">Enter your Password</string>
     <string name="repass">Enter your rePassword</string>
+    <string name="forget">Forget your password !</string>
+    <string name="send">Send </string>
+    <string name="reset_password">We will send you a link to reset your password</string>
 </resources>
