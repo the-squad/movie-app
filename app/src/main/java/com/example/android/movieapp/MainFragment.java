@@ -50,7 +50,7 @@ public class MainFragment extends Fragment {
         }
         else
         {jsonParsing(type);}
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
         setHasOptionsMenu(true);
         return rootView;
     }

@@ -209,10 +209,54 @@
             android:layout_margin="5dp"
             android:padding="5dp"></android.support.v7.widget.RecyclerView>
 
+        <TextView
+            android:id="@+id/Commenttitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/img2"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/revRecycler"
+            android:layout_marginTop="5dp"
+            android:background="#00BCD4"
+            android:padding="10dp"
+            android:text="Comments : "
+            android:textColor="#FFFF"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/commentrec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/Commenttitle"
+            android:layout_margin="5dp"
+            android:padding="5dp">
 
-
+        </android.support.v7.widget.RecyclerView>
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id = "@+id/commentandbutton"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/commentrec"
+            >
+            <EditText
+                android:id="@+id/writeCommentText"
+                android:hint="Write Comment"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="fill_parent">
+            </EditText>
+            <ImageButton android:text="@+id/sendComment"
+                android:id="@+id/sendComment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_send_black_24dp" />
+        </LinearLayout>
 
     </RelativeLayout>
 
