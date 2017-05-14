@@ -53,6 +53,7 @@ public class messengerFragment extends Fragment {
                 }
                 else
                     Toast.makeText(getActivity().getBaseContext(),"Write Message",Toast.LENGTH_LONG).show();
+                writeMessage.setText("");
             }
         });
         return v;

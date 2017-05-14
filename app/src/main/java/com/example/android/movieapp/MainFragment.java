@@ -2,6 +2,7 @@ package com.example.android.movieapp;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -99,6 +100,11 @@ public class MainFragment extends Fragment {
                 recyclerView.setAdapter(dbAdapter);
                 return true;
             }
+        }
+        if (id == R.id.Chat)
+        {
+            Intent i = new Intent(this.getActivity(),Messanger.class);
+            startActivity(i);
         }
         return super.onOptionsItemSelected(item);
     }

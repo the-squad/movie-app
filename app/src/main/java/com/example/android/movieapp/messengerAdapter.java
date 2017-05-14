@@ -48,14 +48,6 @@ public class messengerAdapter extends RecyclerView.Adapter<messengerAdapter.mess
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.messenger_username_name);
             message = (TextView) itemView.findViewById(R.id.messenger_Content);
-            containerlayout = (LinearLayout) itemView.findViewById(R.id.containerlayout);
-            containerlayout.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    Toast.makeText(itemView.getContext(),name.getText().toString(),Toast.LENGTH_LONG).show();
-                    return true;
-                }
-            });
         }
     }
 }

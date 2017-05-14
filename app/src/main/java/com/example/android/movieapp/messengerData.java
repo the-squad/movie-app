@@ -7,7 +7,7 @@ package com.example.android.movieapp;
 public class messengerData {
     private String Message;
     private String user;
-
+    public messengerData(){}
     public messengerData(String message, String user) {
         Message = message;
         this.user = user;

@@ -41,7 +41,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Reset_password"></activity>
+        <activity android:name=".Reset_password" />
+        <activity android:name=".Messanger"></activity>
     </application>
 
 </manifest>
