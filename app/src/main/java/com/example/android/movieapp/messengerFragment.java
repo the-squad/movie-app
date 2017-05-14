@@ -49,7 +49,7 @@ public class messengerFragment extends Fragment {
                 if(!TextUtils.isEmpty(message))
                 {
 
-                    db.child("comments").push().setValue(new messengerData(message, FirebaseAuth.getInstance().getCurrentUser().getUid()));
+                    db.child("messenger").push().setValue(new messengerData(message, FirebaseAuth.getInstance().getCurrentUser().getUid()));
                 }
                 else
                     Toast.makeText(getActivity().getBaseContext(),"Write Message",Toast.LENGTH_LONG).show();
