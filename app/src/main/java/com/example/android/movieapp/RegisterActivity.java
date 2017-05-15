@@ -56,6 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
             user = FirebaseAuth.getInstance().getCurrentUser();
             emailTextedite.setText(user.getEmail());
             emailTextedite.setEnabled(false);
+            //nameTextedite.setText(db);
             signupButton.setText("update");
         }
 
@@ -137,6 +138,8 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             db.child(user.getUid()).child("name").setValue(name);
+                            Intent i = new Intent(RegisterActivity.this, MainActivity.class);
+                            startActivity(i);
                         }
                     }
                 });

@@ -106,6 +106,12 @@ public class MainFragment extends Fragment {
             Intent i = new Intent(this.getActivity(),Messanger.class);
             startActivity(i);
         }
+        if ((id == R.id.Profile))
+        {
+            Intent intent =new Intent(this.getActivity(),RegisterActivity.class);
+            intent.putExtra("type","profile");
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 }
