@@ -41,7 +41,7 @@
 
         <EditText
             android:id="@+id/writeMessage"
-            android:hint="Write Message"
+            android:hint="@string/messangerMessage"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_width="fill_parent" />

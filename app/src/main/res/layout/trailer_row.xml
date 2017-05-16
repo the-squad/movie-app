@@ -18,7 +18,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Video Name : "
+        android:text=""
         android:textSize="15dp"
         android:id="@+id/videoName"
         android:textColor="#03414D"
@@ -32,11 +32,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Link Link Link"
+        android:text="@string/link"
         android:id="@+id/link"
         android:clickable="true"
         android:autoLink="all"
-        android:textColorLink="#F23A3A"
+        android:textColorLink="@color/lightRedColor"
         android:textSize="12dp"
         android:layout_centerVertical="true"
         android:layout_alignStart="@+id/videoName"

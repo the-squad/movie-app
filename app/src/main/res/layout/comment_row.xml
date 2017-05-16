@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/nameComment"
         android:layout_margin="10dp"
-        android:textColor="#222831"
+        android:textColor="@color/black"
         android:textSize="20dp"
         android:textStyle="bold"
         />
@@ -23,7 +23,7 @@
         android:id="@+id/commentText"
         
         android:layout_margin="15dp"
-        android:textColor="#03414D"
+        android:textColor="@color/darckGreen"
         android:textSize="15dp"
         />
 </LinearLayout>

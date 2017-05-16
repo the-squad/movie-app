@@ -7,7 +7,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/messenger_username_name"
         android:layout_margin="10dp"
-        android:textColor="#222831"
+        android:textColor="@color/black"
         android:textSize="20dp"
         android:textStyle="bold"
         />
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/messenger_Content"
         android:layout_margin="15dp"
-        android:textColor="#03414D"
+        android:textColor="@color/darckGreen"
         android:textSize="15dp"
         />
 
