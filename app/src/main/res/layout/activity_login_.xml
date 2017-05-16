@@ -29,6 +29,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:inputType="textPassword"
         android:ems="10"
         android:hint="@string/pass"
         app:layout_constraintBottom_toTopOf="@+id/log_btn"
