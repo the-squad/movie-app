@@ -17,8 +17,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -56,7 +59,21 @@ public class RegisterActivity extends AppCompatActivity {
             user = FirebaseAuth.getInstance().getCurrentUser();
             emailTextedite.setText(user.getEmail());
             emailTextedite.setEnabled(false);
-            //nameTextedite.setText(db);
+
+            db.child(user.getUid()).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    nameTextedite.setText(dataSnapshot.getValue(String.class));
+
+                    db.removeEventListener(this);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
             signupButton.setText("update");
         }
 
@@ -140,6 +157,8 @@ public class RegisterActivity extends AppCompatActivity {
                             db.child(user.getUid()).child("name").setValue(name);
                             Intent i = new Intent(RegisterActivity.this, MainActivity.class);
                             startActivity(i);
+                        }else{
+                            passwordTextedite.setError("invalid password");
                         }
                     }
                 });
