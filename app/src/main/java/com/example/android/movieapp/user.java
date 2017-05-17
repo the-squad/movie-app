@@ -1,8 +1,5 @@
 package com.example.android.movieapp;
 
-/**
- * Created by mohamedkamal on 5/5/2017.
- */
 
 public class user {
     String usid;

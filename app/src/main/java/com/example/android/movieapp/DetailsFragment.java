@@ -31,9 +31,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 
-/**
- * Created by mohamed on 11/29/2016.
- */
 
 public class DetailsFragment extends Fragment {
     MovieData model = new MovieData();

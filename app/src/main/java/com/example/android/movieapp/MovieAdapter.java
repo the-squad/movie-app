@@ -15,9 +15,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-/**
- * Created by mohamed on 11/18/2016.
- */
 
 class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder> {
 

@@ -1,8 +1,5 @@
 package com.example.android.movieapp;
 
-/**
- * Created by mohamed on 11/22/2016.
- */
 //This Class Represents Trailer's Fields
 public class TrailerData {
     private String videoName;

@@ -12,10 +12,6 @@ import java.util.ArrayList;
 
 
 
-/**
- * Created by mohamed on 11/27/2016.
- */
-
 public class MovieDbAdapter {
 
     MovieDbHelper helper;

@@ -17,9 +17,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.Console;
 import java.util.ArrayList;
 
-/**
- * Created by mohamedkamal on 5/5/2017.
- */
 
 public class commentAdapter extends RecyclerView.Adapter<commentAdapter.commentViewHolder> {
     ArrayList<comment> comments;

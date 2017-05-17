@@ -13,9 +13,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-/**
- * Created by mohamed on 11/22/2016.
- */
 
 public abstract class ReviewParser extends AsyncTask<String,Void,ArrayList<ReviewData>> {
     public ArrayList<ReviewData> reviewsList = new ArrayList<>();

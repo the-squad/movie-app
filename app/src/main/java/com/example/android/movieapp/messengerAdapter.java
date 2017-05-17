@@ -10,9 +10,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-/**
- * Created by mohamedkamal on 5/14/2017.
- */
 
 public class messengerAdapter extends RecyclerView.Adapter<messengerAdapter.messengerViewHolder> {
     ArrayList<messengerData> messengerDatas;

@@ -16,9 +16,6 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-/**
- * Created by mohamed on 11/29/2016.
- */
 
 public class MainFragment extends Fragment {
     RecyclerView recyclerView;

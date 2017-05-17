@@ -19,9 +19,6 @@ import java.util.ArrayList;
 import static android.R.attr.x;
 import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
-/**
- * Created by mohamed on 11/18/2016.
- */
 
 public abstract class MovieParser extends AsyncTask<String, Void, ArrayList<MovieData>> {
 
