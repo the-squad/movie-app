@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MovieApp</string>
+    <string name="app_name">Movie Box</string>
     <string name="log">Login</string>
     <string name="register">Ctreat new Account</string>
     <string name="create">Create</string>

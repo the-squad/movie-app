@@ -109,6 +109,13 @@ public class MainFragment extends Fragment {
             intent.putExtra("type","profile");
             startActivity(intent);
         }
+        if (id==R.id.Logout)
+        {
+            Intent intent =new Intent(this.getActivity(),Login_Activity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+
+        }
         return super.onOptionsItemSelected(item);
     }
 }
