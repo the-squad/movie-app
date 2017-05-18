@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FFF">
+    android:background="@color/white">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#FFF"
+        android:background="@color/white"
         >
 
         <ImageView
@@ -35,10 +35,10 @@
             android:layout_height="40dp"
             android:layout_above="@+id/img2"
             android:layout_alignParentEnd="true"
-            android:background="#8000"
+            android:background="@color/black"
             android:gravity="center"
-            android:text="SUICIDE SQUAD"
-            android:textColor="#FFF"
+            android:text="@string/movieName"
+            android:textColor="@color/white"
             android:textSize="25dp"
             android:textStyle="bold" />
 
@@ -68,7 +68,7 @@
                 android:layout_toEndOf="@+id/calender"
                 android:text="2016"
                 android:textSize="20dp"
-                android:textColor="#4B788F"
+                android:textColor="@color/colorPrimaryDark"
                 />
 
         </LinearLayout>
@@ -100,7 +100,7 @@
                 android:textSize="20dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginLeft="5dp"
-                android:textColor="#4B788F"
+                android:textColor="@color/colorPrimaryDark"
                 />
 
         </LinearLayout>
@@ -143,10 +143,10 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/img2"
             android:layout_marginTop="15dp"
-            android:background="#00BCD4"
+            android:background="@color/colorPrimary"
             android:padding="10dp"
-            android:text="Story :"
-            android:textColor="#FFFF"
+            android:text="@string/storyTitle"
+            android:textColor="@color/white"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -157,8 +157,8 @@
             android:layout_alignBaseline="@+id/img2"
             android:layout_below="@+id/storyTitle"
             android:padding="12dp"
-            android:text="From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government, undertaking high-risk black ops missions in exchange for commuted prison sentences."
-            android:textColor="#4B788F"
+            android:text="@string/storyContent"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="15dp" />
 
 
@@ -168,10 +168,10 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/img2"
             android:layout_below="@+id/story"
-            android:background="#00BCD4"
+            android:background="@color/colorPrimary"
             android:padding="10dp"
-            android:text="Trailers : "
-            android:textColor="#FFFF"
+            android:text="@string/trailerTitle"
+            android:textColor="@color/white"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -192,10 +192,10 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/vidRecycler"
             android:layout_marginTop="5dp"
-            android:background="#00BCD4"
+            android:background="@color/colorPrimary"
             android:padding="10dp"
-            android:text="Reviews : "
-            android:textColor="#FFFF"
+            android:text="@string/ReviewTitle"
+            android:textColor="@color/white"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -217,10 +217,10 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/revRecycler"
             android:layout_marginTop="5dp"
-            android:background="#00BCD4"
+            android:background="@color/colorPrimary"
             android:padding="10dp"
-            android:text="Comments : "
-            android:textColor="#FFFF"
+            android:text="@string/commentsTitle"
+            android:textColor="@color/white"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -246,7 +246,7 @@
             >
             <EditText
                 android:id="@+id/writeCommentText"
-                android:hint="Write Comment"
+                android:hint="@string/commentsMessage"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_width="fill_parent">

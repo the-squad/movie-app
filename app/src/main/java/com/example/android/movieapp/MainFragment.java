@@ -2,6 +2,7 @@ package com.example.android.movieapp;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,9 +16,6 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-/**
- * Created by mohamed on 11/29/2016.
- */
 
 public class MainFragment extends Fragment {
     RecyclerView recyclerView;
@@ -99,6 +97,24 @@ public class MainFragment extends Fragment {
                 recyclerView.setAdapter(dbAdapter);
                 return true;
             }
+        }
+        if (id == R.id.Chat)
+        {
+            Intent i = new Intent(this.getActivity(),Messanger.class);
+            startActivity(i);
+        }
+        if ((id == R.id.Profile))
+        {
+            Intent intent =new Intent(this.getActivity(),RegisterActivity.class);
+            intent.putExtra("type","profile");
+            startActivity(intent);
+        }
+        if (id==R.id.Logout)
+        {
+            Intent intent =new Intent(this.getActivity(),Login_Activity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+
         }
         return super.onOptionsItemSelected(item);
     }

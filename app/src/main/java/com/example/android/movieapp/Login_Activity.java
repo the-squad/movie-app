@@ -63,6 +63,7 @@ public class Login_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent =new Intent(Login_Activity.this,RegisterActivity.class);
+                intent.putExtra("type","register");
                 startActivity(intent);
             }
         });

@@ -2,10 +2,6 @@ package com.example.android.movieapp;
 
 import java.io.Serializable;
 
-/**
- * Created by mohamed on 11/18/2016.
- */
-
 //This Class represents a Movie
 public class MovieData implements Serializable {
     private String poster;

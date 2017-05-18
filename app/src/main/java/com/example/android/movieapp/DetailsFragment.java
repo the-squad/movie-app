@@ -31,9 +31,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 
-/**
- * Created by mohamed on 11/29/2016.
- */
 
 public class DetailsFragment extends Fragment {
     MovieData model = new MovieData();
@@ -203,6 +200,11 @@ public class DetailsFragment extends Fragment {
             for (DataSnapshot d : dataSnapshot.child("comments").getChildren()) {
                 comment commentsRetrived = d.getValue(comment.class);
                 if (commentsRetrived.getId().equals(model.getId())) {
+                    commentsRetrived.setComment_id(d.getKey());
+                    commentsRetrived.setContext(getActivity());
+                    if(commentsRetrived.getUser().equals(FirebaseAuth.getInstance().getCurrentUser().getUid()))
+                        commentsRetrived.setOwn(true);
+                    else commentsRetrived.setOwn(false);
                     commentsRetrived.setUser((String) dataSnapshot.child("users").child(commentsRetrived.getUser()).child("name").getValue());
                     comments.add(commentsRetrived);
                     commentAdapter.notifyDataSetChanged();

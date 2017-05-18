@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MovieApp</string>
+    <string name="app_name">Movie Box</string>
     <string name="log">Login</string>
     <string name="register">Ctreat new Account</string>
     <string name="create">Create</string>
@@ -10,4 +10,17 @@
     <string name="forget">Forget your password !</string>
     <string name="send">Send </string>
     <string name="reset_password">We will send you a link to reset your password</string>
+    <string name="author">Author : </string>
+    <string name="content">content ..content.. content </string>
+    <string name="NoConnection">No internet connection !</string>
+    <string name="videoName">Video Name : </string>
+    <string name="link">Link ..Link.. Link</string>
+    <string name="messangerMessage">Write Message</string>
+    <string name="commentsTitle">Comments : </string>
+    <string name="commentsMessage">Write Comment</string>
+    <string name="ReviewTitle">Reviews : </string>
+    <string name="movieName">SUICIDE SQUAD</string>
+    <string name="storyTitle">Story :</string>
+    <string name="storyContent">From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government, undertaking high-risk black ops missions in exchange for commuted prison sentences.</string>
+    <string name="trailerTitle">Trailers : </string>
 </resources>

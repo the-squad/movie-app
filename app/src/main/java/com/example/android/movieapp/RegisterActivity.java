@@ -16,8 +16,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -27,19 +31,53 @@ public class RegisterActivity extends AppCompatActivity {
     EditText emailTextedite;
     EditText passwordTextedite;
     EditText repasswordTextedite;
+    String type;
     Button signupButton;
+    FirebaseUser user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         mAuth = FirebaseAuth.getInstance();
-        //initiate section
         db =  FirebaseDatabase.getInstance().getReference().child("users");
+
+        //initiate section
+        Intent intent=getIntent();
+        type=intent.getStringExtra("type");
+
+
+
+
         nameTextedite = (EditText) findViewById(R.id.nameSignup);
         emailTextedite = (EditText) findViewById(R.id.emailSignup);
         passwordTextedite = (EditText) findViewById(R.id.passwordSignup);
         repasswordTextedite = (EditText) findViewById(R.id.repasswordSignup);
         signupButton = (Button) findViewById(R.id.signup);
+
+
+        if(type.equalsIgnoreCase("profile")){
+            user = FirebaseAuth.getInstance().getCurrentUser();
+            emailTextedite.setText(user.getEmail());
+            emailTextedite.setEnabled(false);
+
+            db.child(user.getUid()).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    nameTextedite.setText(dataSnapshot.getValue(String.class));
+
+                    db.removeEventListener(this);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+            signupButton.setText("update");
+        }
+
+
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,7 +95,11 @@ public class RegisterActivity extends AppCompatActivity {
                             {
                                 if (repassword.equals(password))
                                 {
-                                    SignUp(email,password,name);
+                                    if(type.equalsIgnoreCase("register")){
+                                        SignUp(email,password,name);}
+                                    else {
+                                        updateProfile(password,name);
+                                    }
                                 }
                                 else
                                 {
@@ -100,6 +142,23 @@ public class RegisterActivity extends AppCompatActivity {
                         } else {
                             Toast.makeText(RegisterActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    public void updateProfile(String pass, final String name)
+    {
+        user.updatePassword(pass)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            db.child(user.getUid()).child("name").setValue(name);
+                            Intent i = new Intent(RegisterActivity.this, MainActivity.class);
+                            startActivity(i);
+                        }else{
+                            passwordTextedite.setError("invalid password");
                         }
                     }
                 });
